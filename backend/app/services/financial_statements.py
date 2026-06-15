@@ -18,7 +18,6 @@ def compute_all(raw: Dict) -> Dict:
         "balance_sheet": balance_sheet,
         "pl": pl,
         "metrics": metrics,
-        "findings": {"findings": [], "total": 0, "high": 0, "medium": 0, "low": 0},
     }
 
 
@@ -206,6 +205,6 @@ def _metrics(
         "net_profit_margin": round(net_profit_margin, 2) if net_profit_margin is not None else None,
         "je_count": je_count,
         "account_count": account_count,
-        "findings_count": 0,
-        "high_risk_count": 0,
+        "findings_count": None,  # filled in by upload.py after findings are computed
+        "high_risk_count": None,
     }

@@ -2,6 +2,7 @@ import uuid
 
 from fastapi import APIRouter, File, HTTPException, UploadFile
 
+from app.services.audit_rules import compute_findings
 from app.services.financial_statements import compute_all
 from app.services.parser import parse_excel
 from app.services.storage import save_session
@@ -25,6 +26,15 @@ async def upload_file(file: UploadFile = File(...)):
         reports = compute_all(raw)
     except Exception as e:
         raise HTTPException(500, f"Failed to compute financial statements: {e}")
+
+    try:
+        findings = compute_findings(raw)
+    except Exception as e:
+        findings = {"findings": [], "total": 0, "high": 0, "medium": 0, "low": 0}
+
+    reports["findings"] = findings
+    reports["metrics"]["findings_count"] = findings["total"]
+    reports["metrics"]["high_risk_count"] = findings["high"]
 
     session_id = str(uuid.uuid4())
     reports["metadata"] = {

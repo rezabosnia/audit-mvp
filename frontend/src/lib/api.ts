@@ -139,3 +139,29 @@ export const getBalanceSheet = (id: string) =>
 
 export const getPL = (id: string) =>
   fetchJSON<PL>(`${API_BASE}/reports/${id}/pl`);
+
+export interface Finding {
+  finding_id: string;
+  rule_name: string;
+  risk_level: "High" | "Medium" | "Low";
+  je_id: string;
+  date: string;
+  account_no: string;
+  account_name: string;
+  amount: number;
+  description: string;
+  reason_flagged: string;
+  financial_statement_impact: string;
+  recommended_audit_query: string;
+}
+
+export interface FindingsReport {
+  findings: Finding[];
+  total: number;
+  high: number;
+  medium: number;
+  low: number;
+}
+
+export const getFindings = (id: string) =>
+  fetchJSON<FindingsReport>(`${API_BASE}/reports/${id}/findings`);

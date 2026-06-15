@@ -24,8 +24,6 @@ const navItems = [
     label: "Audit Findings",
     icon: AlertTriangle,
     path: "/findings",
-    disabled: true,
-    badge: "Feature 2",
   },
   {
     label: "Audit Workpapers",
