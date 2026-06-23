@@ -165,3 +165,35 @@ export interface FindingsReport {
 
 export const getFindings = (id: string) =>
   fetchJSON<FindingsReport>(`${API_BASE}/reports/${id}/findings`);
+
+export interface KeyBalance {
+  account_no: string;
+  account_name: string;
+  account_type: string;
+  debit: number;
+  credit: number;
+  net_balance: number;
+}
+
+export interface Workpaper {
+  workpaper_id: string;
+  audit_area: string;
+  objective: string;
+  scope: string;
+  procedures_performed: string[];
+  key_balances: KeyBalance[];
+  findings: Finding[];
+  highlighted_je_ids: string[];
+  risk_rating: "High" | "Medium" | "Low" | "No Issues";
+  financial_statement_impact: string;
+  recommended_audit_query: string;
+  conclusion: string;
+}
+
+export interface WorkpapersReport {
+  workpapers: Workpaper[];
+  total: number;
+}
+
+export const getWorkpapers = (id: string) =>
+  fetchJSON<WorkpapersReport>(`${API_BASE}/reports/${id}/workpapers`);

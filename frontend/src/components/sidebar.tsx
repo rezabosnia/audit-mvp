@@ -29,8 +29,6 @@ const navItems = [
     label: "Audit Workpapers",
     icon: FileText,
     path: "/workpapers",
-    disabled: true,
-    badge: "Feature 3",
   },
 ];
 

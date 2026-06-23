@@ -4,7 +4,7 @@ from app.services.storage import load_report
 
 router = APIRouter()
 
-VALID_REPORTS = {"metadata", "trial_balance", "balance_sheet", "pl", "metrics", "findings"}
+VALID_REPORTS = {"metadata", "trial_balance", "balance_sheet", "pl", "metrics", "findings", "workpapers"}
 
 
 def _get(session_id: str, report_name: str):
@@ -42,3 +42,8 @@ def get_metrics(session_id: str):
 @router.get("/reports/{session_id}/findings")
 def get_findings(session_id: str):
     return _get(session_id, "findings")
+
+
+@router.get("/reports/{session_id}/workpapers")
+def get_workpapers(session_id: str):
+    return _get(session_id, "workpapers")

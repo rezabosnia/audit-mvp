@@ -6,6 +6,7 @@ from app.services.audit_rules import compute_findings
 from app.services.financial_statements import compute_all
 from app.services.parser import parse_excel
 from app.services.storage import save_session
+from app.services.workpapers import compute_workpapers
 
 router = APIRouter()
 
@@ -35,6 +36,11 @@ async def upload_file(file: UploadFile = File(...)):
     reports["findings"] = findings
     reports["metrics"]["findings_count"] = findings["total"]
     reports["metrics"]["high_risk_count"] = findings["high"]
+
+    try:
+        reports["workpapers"] = compute_workpapers(raw, findings)
+    except Exception:
+        reports["workpapers"] = {"workpapers": [], "total": 0}
 
     session_id = str(uuid.uuid4())
     reports["metadata"] = {
