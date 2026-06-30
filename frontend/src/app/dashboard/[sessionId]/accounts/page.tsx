@@ -356,6 +356,9 @@ function AccountDetail({
                   {isConsolidated && (
                     <th className="text-left px-3 py-2.5 font-semibold text-slate-500 w-20">Entity</th>
                   )}
+                  {isConsolidated && (
+                    <th className="text-left px-3 py-2.5 font-semibold text-slate-500 w-44">Sub Account</th>
+                  )}
                   <th className="text-left px-3 py-2.5 font-semibold text-slate-500">Description</th>
                   <th className="text-right px-3 py-2.5 font-semibold text-slate-500 w-32">Debit</th>
                   <th className="text-right px-3 py-2.5 font-semibold text-slate-500 w-32">Credit</th>
@@ -377,6 +380,22 @@ function AccountDetail({
                         )}
                       </td>
                     )}
+                    {isConsolidated && (
+                      <td className="px-3 py-2">
+                        {row.Original_Account_No ? (
+                          <div>
+                            <span className="font-mono text-slate-400">{row.Original_Account_No}</span>
+                            {row.Original_Account_Name && (
+                              <p className="text-slate-500 truncate max-w-[10rem]" title={row.Original_Account_Name}>
+                                {row.Original_Account_Name}
+                              </p>
+                            )}
+                          </div>
+                        ) : (
+                          <span className="text-slate-300">—</span>
+                        )}
+                      </td>
+                    )}
                     <td className="px-3 py-2 text-slate-700 max-w-xs truncate" title={row.Description}>
                       {row.Description}
                     </td>
@@ -391,7 +410,7 @@ function AccountDetail({
               </tbody>
               <tfoot>
                 <tr className="bg-slate-50 border-t border-slate-200 font-semibold">
-                  <td colSpan={isConsolidated ? 4 : 3} className="px-3 py-2 text-right text-slate-500 text-[11px] uppercase tracking-wide">
+                  <td colSpan={isConsolidated ? 6 : 3} className="px-3 py-2 text-right text-slate-500 text-[11px] uppercase tracking-wide">
                     Total
                   </td>
                   <td className="px-3 py-2 text-right text-slate-800 tabular-nums">{formatIDR(entries.total_debit)}</td>

@@ -41,6 +41,8 @@ def consolidate(
     for row in parent_raw["je"]:
         r = dict(row)
         r["JE_ID"] = f"{parent_code}-{r['JE_ID']}" if r.get("JE_ID") else r.get("JE_ID")
+        r["Original_Account_No"] = r.get("Account_No")
+        r["Original_Account_Name"] = r.get("Account_Name")
         all_je.append(r)
 
     # Subsidiary JEs — remap accounts
@@ -49,7 +51,11 @@ def consolidate(
         for row in sub_raw["je"]:
             r = dict(row)
             sub_acct = str(r.get("Account_No", ""))
+            sub_name = r.get("Account_Name")
             parent_acct = mapping.get((entity_code, sub_acct))
+
+            r["Original_Account_No"] = sub_acct
+            r["Original_Account_Name"] = sub_name
 
             if parent_acct and parent_acct in parent_coa:
                 r["Account_No"] = parent_acct

@@ -233,6 +233,8 @@ export interface JournalEntry {
   Entry_Type: string;
   Account_No: string;
   Account_Name: string;
+  Original_Account_No: string | null;
+  Original_Account_Name: string | null;
   Debit_IDR: number;
   Credit_IDR: number;
   Description: string;
