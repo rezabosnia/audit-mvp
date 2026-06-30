@@ -251,3 +251,25 @@ export interface AccountEntries {
 
 export const getAccountEntries = (id: string, accountNo: string) =>
   fetchJSON<AccountEntries>(`${API_BASE}/reports/${id}/account-entries/${accountNo}`);
+
+export interface SampleFile {
+  key: string;
+  label: string;
+  description: string;
+  filename: string;
+}
+
+export const getSampleFiles = () =>
+  fetchJSON<SampleFile[]>(`${API_BASE}/demo/files`);
+
+export const getDemoDownloadUrl = (key: string) =>
+  `${API_BASE}/demo/download/${key}`;
+
+export async function runDemo(): Promise<ConsolidateResponse> {
+  const res = await fetch(`${API_BASE}/demo/run`, { method: "POST" });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ detail: res.statusText }));
+    throw new Error((err as { detail: string }).detail ?? "Demo failed");
+  }
+  return res.json() as Promise<ConsolidateResponse>;
+}
