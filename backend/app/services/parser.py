@@ -26,10 +26,14 @@ def parse_excel(file_bytes: bytes) -> Dict[str, List[Any]]:
     str_cols = [
         "JE_ID", "Account_No", "Account_Name", "Description",
         "Counterparty", "Created_By", "Approved_By", "Entry_Type", "Source_Module",
+        "Reference_No",
     ]
     for col in str_cols:
         if col in je.columns:
             je[col] = je[col].astype(str).where(je[col].notna(), None)
+
+    # Replace all remaining NaN/NaT with None so the dicts are JSON-safe
+    je = je.where(je.notna(), None)
 
     return {
         "coa": coa.to_dict(orient="records"),

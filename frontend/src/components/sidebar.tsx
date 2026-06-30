@@ -7,6 +7,7 @@ import {
   BarChart3,
   AlertTriangle,
   FileText,
+  BookOpen,
 } from "lucide-react";
 
 const navItems = [
@@ -24,15 +25,16 @@ const navItems = [
     label: "Audit Findings",
     icon: AlertTriangle,
     path: "/findings",
-    disabled: true,
-    badge: "Feature 2",
   },
   {
     label: "Audit Workpapers",
     icon: FileText,
     path: "/workpapers",
-    disabled: true,
-    badge: "Feature 3",
+  },
+  {
+    label: "Account Explorer",
+    icon: BookOpen,
+    path: "/accounts",
   },
 ];
 

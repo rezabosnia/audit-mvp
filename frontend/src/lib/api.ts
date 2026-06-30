@@ -125,6 +125,31 @@ export async function uploadFile(file: File): Promise<UploadResponse> {
   return res.json() as Promise<UploadResponse>;
 }
 
+export interface ConsolidateResponse {
+  session_id: string;
+  entity_count: number;
+  je_count: number;
+}
+
+export async function consolidateEntities(
+  parentFile: File,
+  subsidiaryFiles: File[],
+  mappingFile: File,
+  entityCodes: string[],
+): Promise<ConsolidateResponse> {
+  const form = new FormData();
+  form.append("parent_file", parentFile);
+  for (const f of subsidiaryFiles) form.append("subsidiary_files", f);
+  form.append("mapping_file", mappingFile);
+  form.append("entity_codes", JSON.stringify(entityCodes));
+  const res = await fetch(`${API_BASE}/consolidate`, { method: "POST", body: form });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ detail: res.statusText }));
+    throw new Error((err as { detail: string }).detail ?? "Consolidation failed");
+  }
+  return res.json() as Promise<ConsolidateResponse>;
+}
+
 export const getMetadata = (id: string) =>
   fetchJSON<Metadata>(`${API_BASE}/reports/${id}/metadata`);
 
@@ -139,3 +164,90 @@ export const getBalanceSheet = (id: string) =>
 
 export const getPL = (id: string) =>
   fetchJSON<PL>(`${API_BASE}/reports/${id}/pl`);
+
+export interface Finding {
+  finding_id: string;
+  rule_name: string;
+  risk_level: "High" | "Medium" | "Low";
+  je_id: string;
+  date: string;
+  account_no: string;
+  account_name: string;
+  amount: number;
+  description: string;
+  reason_flagged: string;
+  financial_statement_impact: string;
+  recommended_audit_query: string;
+}
+
+export interface FindingsReport {
+  findings: Finding[];
+  total: number;
+  high: number;
+  medium: number;
+  low: number;
+}
+
+export const getFindings = (id: string) =>
+  fetchJSON<FindingsReport>(`${API_BASE}/reports/${id}/findings`);
+
+export interface KeyBalance {
+  account_no: string;
+  account_name: string;
+  account_type: string;
+  debit: number;
+  credit: number;
+  net_balance: number;
+}
+
+export interface Workpaper {
+  workpaper_id: string;
+  audit_area: string;
+  objective: string;
+  scope: string;
+  procedures_performed: string[];
+  key_balances: KeyBalance[];
+  findings: Finding[];
+  highlighted_je_ids: string[];
+  risk_rating: "High" | "Medium" | "Low" | "No Issues";
+  financial_statement_impact: string;
+  recommended_audit_query: string;
+  conclusion: string;
+}
+
+export interface WorkpapersReport {
+  workpapers: Workpaper[];
+  total: number;
+}
+
+export const getWorkpapers = (id: string) =>
+  fetchJSON<WorkpapersReport>(`${API_BASE}/reports/${id}/workpapers`);
+
+export interface JournalEntry {
+  JE_ID: string;
+  Document_Date: string;
+  Posting_DateTime: string;
+  Line_No: number;
+  Reference_No: string;
+  Source_Module: string;
+  Entry_Type: string;
+  Account_No: string;
+  Account_Name: string;
+  Debit_IDR: number;
+  Credit_IDR: number;
+  Description: string;
+  Counterparty: string | null;
+  Created_By: string;
+  Approved_By: string;
+  entity: string | null;
+}
+
+export interface AccountEntries {
+  account_no: string;
+  entries: JournalEntry[];
+  total_debit: number;
+  total_credit: number;
+}
+
+export const getAccountEntries = (id: string, accountNo: string) =>
+  fetchJSON<AccountEntries>(`${API_BASE}/reports/${id}/account-entries/${accountNo}`);
