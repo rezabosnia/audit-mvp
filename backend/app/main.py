@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import upload, reports
+from app.routers import upload, reports, consolidate
 
 app = FastAPI(title="Audit MVP API", version="1.0.0")
 
@@ -13,6 +13,7 @@ app.add_middleware(
 )
 
 app.include_router(upload.router, prefix="/api", tags=["upload"])
+app.include_router(consolidate.router, prefix="/api", tags=["consolidate"])
 app.include_router(reports.router, prefix="/api", tags=["reports"])
 
 

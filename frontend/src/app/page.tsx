@@ -1,11 +1,12 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useRef, useState, DragEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { uploadFile } from "@/lib/api";
-import { FileSpreadsheet, Upload, Loader2, AlertCircle } from "lucide-react";
+import { FileSpreadsheet, Upload, Loader2, AlertCircle, Layers } from "lucide-react";
 
 export default function UploadPage() {
   const router = useRouter();
@@ -142,6 +143,27 @@ export default function UploadPage() {
           <p className="mt-6 text-center text-slate-400 text-xs">
             Data is processed locally on your server. No data is sent to external services.
           </p>
+
+          {/* Consolidation option */}
+          <div className="mt-8">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="flex-1 h-px bg-slate-200" />
+              <span className="text-xs text-slate-400 uppercase tracking-wide font-medium">or</span>
+              <div className="flex-1 h-px bg-slate-200" />
+            </div>
+            <Link href="/consolidate">
+              <div className="flex items-center gap-4 p-4 rounded-lg border border-slate-200 bg-white hover:border-blue-300 hover:bg-blue-50/40 transition-colors cursor-pointer group">
+                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-blue-200 transition-colors">
+                  <Layers className="w-5 h-5 text-blue-600" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-slate-700">Group Consolidation Upload</p>
+                  <p className="text-xs text-slate-400 mt-0.5">Upload parent + subsidiaries with COA mapping to generate consolidated financials</p>
+                </div>
+                <span className="ml-auto text-slate-300 group-hover:text-blue-400 text-lg">→</span>
+              </div>
+            </Link>
+          </div>
         </div>
       </main>
     </div>

@@ -7,6 +7,7 @@ import {
   BarChart3,
   AlertTriangle,
   FileText,
+  BookOpen,
 } from "lucide-react";
 
 const navItems = [
@@ -29,6 +30,11 @@ const navItems = [
     label: "Audit Workpapers",
     icon: FileText,
     path: "/workpapers",
+  },
+  {
+    label: "Account Explorer",
+    icon: BookOpen,
+    path: "/accounts",
   },
 ];
 

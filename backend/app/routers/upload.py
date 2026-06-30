@@ -50,6 +50,7 @@ async def upload_file(file: UploadFile = File(...)):
         "account_count": len(raw["coa"]),
         "status": "processed",
     }
+    reports["je"] = raw["je"]
 
     save_session(session_id, reports)
 
