@@ -1,6 +1,6 @@
 # Audit Intelligence Platform — POC
 
-An internal audit support tool for financial statement analysis, risk detection, and group consolidation. Built as a proof of concept for Deloitte's audit practice.
+An internal audit support tool for financial statement analysis, risk detection, and group consolidation. Built as a proof of concept for audit practice.
 
 ## Capabilities
 
