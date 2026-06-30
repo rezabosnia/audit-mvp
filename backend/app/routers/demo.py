@@ -23,9 +23,9 @@ SAMPLE_FILES = {
 }
 
 SAMPLE_META = {
-    "holding": {"label": "Parent Company Ledger", "description": "Nusantara Holding — parent entity with Chart_of_Accounts and Journal_Entries sheets"},
-    "infra": {"label": "Subsidiary Ledger (Infrastructure)", "description": "Nusantara Infrastructure — tower and network operations subsidiary"},
-    "digit": {"label": "Subsidiary Ledger (Digital)", "description": "Nusantara Digital — IT and digital services subsidiary"},
+    "holding": {"label": "Parent Company Ledger", "description": "Nusantara Holding: parent entity with Chart_of_Accounts and Journal_Entries sheets"},
+    "infra": {"label": "Subsidiary Ledger (Infrastructure)", "description": "Nusantara Infrastructure: tower and network operations subsidiary"},
+    "digit": {"label": "Subsidiary Ledger (Digital)", "description": "Nusantara Digital: IT and digital services subsidiary"},
     "mapping": {"label": "COA Mapping File", "description": "Maps subsidiary account numbers to parent accounts. Columns: Entity_Code, Sub_Account_No, Parent_Account_No"},
 }
 
