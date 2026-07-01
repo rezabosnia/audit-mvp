@@ -35,10 +35,10 @@ Then open [http://localhost:3000](http://localhost:3000).
 
 ## Manual Start
 
-**Backend** (port 8002):
+**Backend** (port 8000):
 ```bash
 cd backend
-uv run uvicorn app.main:app --host 0.0.0.0 --port 8002 --reload
+uv run uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
 **Frontend** (port 3000):

@@ -32,9 +32,9 @@ signal.signal(signal.SIGINT, shutdown)
 if hasattr(signal, "SIGTERM"):
     signal.signal(signal.SIGTERM, shutdown)
 
-print("Starting backend on http://localhost:8002 ...")
+print("Starting backend on http://localhost:8000 ...")
 backend = subprocess.Popen(
-    ["uv", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8002", "--reload"],
+    ["uv", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"],
     cwd=BACKEND_DIR,
     stdout=subprocess.PIPE,
     stderr=subprocess.STDOUT,
